@@ -1,25 +1,25 @@
 # Домашнее задание к занятию "Что такое DevOps. СI/СD" - Лебедев Антон
 
-Настройки идентичны тем, что были в лекции и в оригинале ДЗ, их отдельно не привожу. Вот лог сборки:
+Настройки идентичны тем, что были в лекции и в оригинале ДЗ, их отдельно не привожу. Вот лог сборки (убрал некоторые символы, чтобы git не колбасило с форматированием:
 
 Started by user admin
 Running as SYSTEM
 Building in workspace /var/lib/jenkins/workspace/hw-8-02
 The recommended git tool is: NONE
 No credentials specified
- > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/hw-8-02/.git # timeout=10
+  git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/hw-8-02/.git # timeout=10
 Fetching changes from the remote Git repository
- > git config remote.origin.url https://github.com/Lebedun/8-02-jenkins # timeout=10
+  git config remote.origin.url https://github.com/Lebedun/8-02-jenkins # timeout=10
 Fetching upstream changes from https://github.com/Lebedun/8-02-jenkins
- > git --version # timeout=10
- > git --version # 'git version 2.17.1'
- > git fetch --tags --progress -- https://github.com/Lebedun/8-02-jenkins +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+  git --version # timeout=10
+  git --version # 'git version 2.17.1'
+  git fetch --tags --progress -- https://github.com/Lebedun/8-02-jenkins +refs/heads/*:refs/remotes/origin/* # timeout=10
+  git rev-parse refs/remotes/origin/main^{commit} # timeout=10
 Checking out Revision 223dbc3f489784448004e020f2ef224f17a7b06d (refs/remotes/origin/main)
- > git config core.sparsecheckout # timeout=10
- > git checkout -f 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+  git config core.sparsecheckout # timeout=10
+  git checkout -f 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
 Commit message: "Update README.md"
- > git rev-list --no-walk 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+  git rev-list --no-walk 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
 [hw-8-02] $ /bin/sh -xe /tmp/jenkins8713379156983583576.sh
 + /usr/local/go/bin/go test .
 ok  	github.com/netology-code/sdvps-materials	(cached)
