@@ -17,6 +17,8 @@ https://github.com/Lebedun/HomeWork-Blank/commit/00aa24f9dfdc18451f8883ad42b1324
 
 В качестве ответа добавьте ссылку на этот коммит в ваш md-файл с решением.
 
+https://github.com/Lebedun/HomeWork-Blank/commit/39769f8c9ce79f2d66083a6f5d0ca9f15cf0411e
+
 ---
 
 ### Задание 3
