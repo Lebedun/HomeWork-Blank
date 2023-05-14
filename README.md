@@ -1,6 +1,6 @@
 # Домашнее задание к занятию "Что такое DevOps. СI/СD" - Лебедев Антон
 
-Задание 1 : установка jenkins и сборка проекта вплоть до docker build 
+**Задание 1 : установка jenkins и сборка проекта вплоть до docker build **
 
 Jenkins не устанавливал, локальная машина слабовата. Использовал облачную ВМ с предустановленым Jenkins, туда добавил go и docker.
 
@@ -82,7 +82,7 @@ Finished: SUCCESS
 ```````````````````````
 
 
-Задание 2 : pipeline
+**Задание 2 : pipeline**
 
 Скрипт (пришлось поковыряться с branch, по умолчанию jenkins пытается собрать ветку master, а не main).
 
@@ -202,3 +202,113 @@ ok  	github.com/netology-code/sdvps-materials	0.001s
 [Pipeline] End of Pipeline
 Finished: SUCCESS
 ```````````````````````
+
+**Задание 3 : загрузка бинарника в репозиторий Nexus**
+
+После предыдущего пункта и осознания того, что любую команду можно сначала потестить локально, это было уже несложно =).
+
+Код:
+
+```````````````````````
+pipeline {
+ agent any
+ stages {
+  stage('Git') {
+   steps {git branch: 'main', url: 'https://github.com/Lebedun/8-02-jenkins.git'}
+  }
+  stage('Test') {
+   steps {
+    sh '/usr/local/go/bin/go test .'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh '/usr/local/go/bin/go build .'
+    sh 'curl -u admin:woo8PreR+t http://51.250.91.224:8081/repository/8-02_raw/ --upload-file ./sdvps-materials  -v'
+   }
+  }
+ }
+}
+```````````````````````
+
+Лог:
+
+```````````````````````
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/hw-8-02-2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/hw-8-02-2/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Lebedun/8-02-jenkins.git # timeout=10
+Fetching upstream changes from https://github.com/Lebedun/8-02-jenkins.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+ > git fetch --tags --progress -- https://github.com/Lebedun/8-02-jenkins.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 223dbc3f489784448004e020f2ef224f17a7b06d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+Commit message: "Update README.md"
+ > git rev-list --no-walk 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ /usr/local/go/bin/go test .
+ok  	github.com/netology-code/sdvps-materials	(cached)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ /usr/local/go/bin/go build .
+[Pipeline] sh
++ curl -u admin:woo8PreR+t http://51.250.91.224:8081/repository/8-02_raw/ --upload-file ./sdvps-materials -v
+*   Trying 51.250.91.224...
+* TCP_NODELAY set
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Connected to 51.250.91.224 (51.250.91.224) port 8081 (#0)
+* Server auth using Basic with user 'admin'
+> PUT /repository/8-02_raw/sdvps-materials HTTP/1.1
+> Host: 51.250.91.224:8081
+> Authorization: Basic YWRtaW46d29vOFByZVIrdA==
+> User-Agent: curl/7.58.0
+> Accept: */*
+> Content-Length: 1958036
+> Expect: 100-continue
+> 
+< HTTP/1.1 100 Continue
+} [16384 bytes data]
+* We are completely uploaded and fine
+< HTTP/1.1 201 Created
+< Date: Sun, 14 May 2023 20:51:38 GMT
+< Server: Nexus/3.53.1-02 (OSS)
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: sandbox allow-forms allow-modals allow-popups allow-presentation allow-scripts allow-top-navigation
+< X-XSS-Protection: 1; mode=block
+< Content-Length: 0
+< 
+
+100 1912k    0     0  100 1912k      0  35.2M --:--:-- --:--:-- --:--:-- 35.2M
+* Connection #0 to host 51.250.91.224 left intact
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+```````````````````````
+
