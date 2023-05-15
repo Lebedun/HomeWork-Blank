@@ -57,4 +57,4 @@ build:
 
 Скриншот результата сборки:
 
-![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/main/img/Screenshot_1.jpg)
+![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/8-03/img/Screenshot_1.jpg)
