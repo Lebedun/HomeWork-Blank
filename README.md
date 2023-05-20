@@ -17,3 +17,5 @@
 
 **Задание 4* со звездочкой**
 Создайте свой дашборд Grafana с различными метриками Docker и сервера, на котором он стоит.
+
+![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/9-05/img/Screenshot_4.jpg)
