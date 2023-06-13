@@ -106,4 +106,42 @@ bacula-sd.conf:
 
 **Задание 3: Установите программное обеспечении Rsync. Настройте синхронизацию на двух нодах. Протестируйте работу сервиса.**
 
+Практически ничего менять не пришлось (даже IP совпал), только папку указал тестовую.
+
+На первом узле: rsyncd.conf
+```````
+pid file = /var/run/rsyncd.pid
+log file = /var/log/rsyncd.log
+transfer logging = true
+munge symlinks = yes
+[data]
+path = /home/lebedev/10-04
+uid = root
+read only = yes
+list = yes
+comment = Data backup Dir
+auth users = backup
+secrets file = /etc/rsyncd.scrt
+```````
+
+На втором узле: backup-node1.sh
+```````
+#!/bin/bash
+date
+syst_dir=/home/lebedev/10-04/
+srv_name=nodeOne
+# Адрес сервера, который архивируем
+srv_ip=192.168.0.1
+srv_user=backup
+srv_dir=data
+echo "Start backup ${srv_name}"
+mkdir -p ${syst_dir}${srv_name}/increment/
+/usr/bin/rsync -avz --progress --delete --password-file=/etc/rsyncd.scrt ${srv_user}@${srv_ip}::${srv_dir} ${syst_dir}${srv_name}/current/ --backup --backup-dir=${syst_dir}${srv_name}/increment/`d>
+/usr/bin/find ${syst_dir}${srv_name}/increment/ -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
+date
+echo "Finish backup ${srv_name}"
+```````
+
 **Задание 4 со звёздочкой: Настройте резервное копирование двумя или более методами, используя одну из рассмотренных команд для папки /etc/default. Проверьте резервное копирование.**
+
+Честно говоря, не понял задание 4 - ведь в предыдущих конфигах достаточно только заменить имя исходной папки. Задания у меня реально отрабатывали, в конечной папке появлялись копии данных исходной папки. Для примера запустил rsync c исходной папкой /etc/default - получил на втором узле точную её копию.
