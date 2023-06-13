@@ -17,14 +17,16 @@
 Чтобы не делать ответ нечитабельным, привожу только ключевые секции конфигурационных файлов, которые я менял сам. 
 
 bacula-dir.conf:
-
 ```````
 Storage { 
   Name = DWorkstation-sd
   SDPort = 9103
   Address = 127.0.0.1
   Password = "MhtWfcxCoDV-QO4E55KWYxtwEgJEq36OB"
-  Device = FileChgr1-Dev1 # Вот на этой строчке я ОЧЕНЬ сильно погорел. Почти во всех примерах, что мне попадались в сети, имена Storage и Device совпадают, ну и я не посмотрел, что у меня они разные... За ошибку конфигурации это не считается и служба стартует, а бэкап не запускается... Пока разобрался, что не так...
+  Device = FileChgr1-Dev1 # Вот на этой строчке я ОЧЕНЬ сильно погорел.
+# Почти во всех примерах, что мне попадались в сети, имена Storage и Device совпадают,
+# ну и я не посмотрел, что у меня они разные... За ошибку конфигурации это не считается
+# и служба стартует, а бэкап не запускается... Пока разобрался, что не так...
   Media Type = File
 }
  
@@ -64,6 +66,41 @@ Console { # Ничего не менял, пропускаю
 }
 ```````
 
+bacula-sd.conf:
+```````
+Storage {                        
+  Name = DWorkstation-sd
+  SDPort = 9103                 
+  WorkingDirectory = "/var/lib/bacula"
+  Pid Directory = "/run/bacula"
+  Plugin Directory = "/usr/lib/bacula"
+  Maximum Concurrent Jobs = 20
+  SDAddress = 127.0.0.1
+}
+
+Device {
+  Name = FileChgr1-Dev1
+  Media Type = File
+  Archive Device = /home/lebedev/10-04/backup
+  LabelMedia = yes;                   
+  Random Access = Yes;
+  AutomaticMount = yes;
+  RemovableMedia = no;
+  AlwaysOpen = no;
+  Maximum Concurrent Jobs = 5
+}
+
+Director { # Ничего не менял, пропускаю
+}
+Messages { # Ничего не менял, пропускаю
+}
+```````
+bacula-sd.conf:
+```````
+# Вообще не редактировал этот файл, пропускаю
+```````
+
+В итоге попытки с пятнадцатой задача наконец отработала:
 ![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/10-04/img/Screenshot_1.jpg)
 ![Screenshot_2](https://github.com/Lebedun/HomeWork-Blank/blob/10-04/img/Screenshot_2.jpg)
 
