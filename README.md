@@ -38,6 +38,26 @@
 
 *Приведите конфигурации настроенного Nginx сервиса и скриншот результата выполнения команды curl http://localhost:8088/ping.*
 
+``````````
+user  nginx;
+worker_processes  auto;
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+events {
+    worker_connections  1024;
+}
+http {
+  server {
+    listen 8088;
+    location /ping {
+      return 200 'nginx is configured correctly\n';
+    }
+  }
+}
+``````````
+
+![Screenshot_3](https://github.com/lebedun/HomeWork-Blank/blob/10-05/img/Screenshot_3.jpg)
+
 ---
 
 **Задание 6\* Настройка Haproxy**
