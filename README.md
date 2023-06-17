@@ -72,4 +72,19 @@ http {
 
 *Приведите конфигурации настроенного Haproxy и скриншоты результата выполнения команды curl http://localhost:8080/*.
 
+Привожу фрагмент конфигурации, секции global и defaults я не менял
+
+``````````
+frontend homework
+        bind :::8080
+        default_backend nginx
+
+backend nginx
+        http-request set-path /ping
+        server nginx1 localhost:8088 check
+``````````
+
+![Screenshot_4](https://github.com/lebedun/HomeWork-Blank/blob/10-05/img/Screenshot_4.jpg)
+
+
 ---
