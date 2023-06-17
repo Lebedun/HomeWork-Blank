@@ -49,7 +49,7 @@ events {
 http {
   server {
     listen 8088;
-    location /ping {
+    location = /ping {
       return 200 'nginx is configured correctly\n';
     }
   }
