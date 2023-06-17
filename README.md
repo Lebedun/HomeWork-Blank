@@ -16,13 +16,13 @@
 
 **Задание 3 Установите и запустите Haproxy. Приведите скриншот systemctl status haproxy, где будет видно, что Haproxy запущен.**
 
-![Screenshot_1](https://github.com/lebedun/10-05-hw/blob/main/img/Screenshot_1.jpg)
+![Screenshot_1](https://github.com/lebedun/HomeWork-Blank/blob/10-05/img/Screenshot_1.jpg)
 
 ---
 
 **Задание 4 Установите и запустите Nginx. Приведите скриншот systemctl status nginx, где будет видно, что Nginx запущен.**
 
-![Screenshot_2](https://github.com/lebedun/10-05-hw/blob/main/img/Screenshot_2.jpg)
+![Screenshot_2](https://github.com/lebedun/HomeWork-Blank/blob/10-05/img/Screenshot_2.jpg)
 
 ---
 
