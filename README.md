@@ -19,11 +19,11 @@
 Для отправки сообщений необходимо запустить скрипт producer.py.
 
 Зайдите в веб-интерфейс, найдите очередь под названием hello и сделайте скриншот.
-После чего запустите второй скрипт consumer.py и сделайте скриншот результата выполнения скрипта
-
-*В качестве решения домашнего задания приложите оба скриншота, сделанных на этапе выполнения.*
 
 ![Screenshot_2](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_2.jpg)
+
+После чего запустите второй скрипт consumer.py и сделайте скриншот результата выполнения скрипта
+
 ![Screenshot_3](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_3.jpg)
 
 ---
@@ -36,11 +36,16 @@
 
 *В качестве решения домашнего задания приложите скриншоты из веб-интерфейса с информацией о доступных нодах в кластере и включённой политикой.*
 
+![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_4.jpg)
+![Screenshot_5](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_5.jpg)
+
 Также приложите вывод команды с двух нод:
 
 ```shell script
 $ rabbitmqctl cluster_status
 ```
+
+![Screenshot_6](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_6.jpg)
 
 Для закрепления материала снова запустите скрипт producer.py и приложите скриншот выполнения команды на каждой из нод:
 
@@ -52,9 +57,6 @@ $ rabbitmqadmin get queue='hello'
 
 *Приложите скриншот результата работы второго скрипта.*
 
-![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_4.jpg)
-![Screenshot_5](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_5.jpg)
-![Screenshot_6](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_6.jpg)
 ![Screenshot_7](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_7.jpg)
 
 
