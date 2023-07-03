@@ -44,12 +44,14 @@
 ```shell script
 $ rabbitmqctl cluster_status
 ```
+![Screenshot_8](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_8.jpg)
 
 Для закрепления материала снова запустите скрипт producer.py и приложите скриншот выполнения команды на каждой из нод:
 
 ```shell script
 $ rabbitmqadmin get queue='hello'
 ```
+(тут я поменял сообщение, добавив слово Again, чтобы не путаться)
 
 ![Screenshot_6](https://github.com/Lebedun/HomeWork-Blank/blob/11-04/img/Screenshot_6.jpg)
 
