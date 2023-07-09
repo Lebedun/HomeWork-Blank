@@ -37,8 +37,8 @@ city                | city_id
 country             | country_id
 customer            | customer_id
 film                | film_id
-film_actor          | actor_id, film_id
-film_category       | film_id, category_id
+film_actor          | actor_id, film_id (составной ключ)
+film_category       | film_id, category_id (составной ключ)
 film_text           | film_id
 inventory           | inventory_id
 language            | language_id
