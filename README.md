@@ -17,7 +17,11 @@ SELECT DISTINCT district FROM sakila.address WHERE district LIKE 'K%a' AND distr
 Поскольку не указано, какую именно информацию получить, делаю SELECT *, поскольку выборка ограничена по датам - сортирую по ним.
 
 ```
-SELECT * FROM sakila.payment p WHERE p.amount > 10 AND p.payment_date BETWEEN '2005-06-15 00:00:00' AND '2005-06-18 23:59:59' ORDER BY p.payment_date;
+SELECT * FROM sakila.payment p
+WHERE p.amount > 10
+  AND p.payment_date BETWEEN '2005-06-15 00:00:00'
+  AND '2005-06-18 23:59:59'
+ORDER BY p.payment_date;
 ```
 ![Screenshot_2](https://github.com/Lebedun/HomeWork-Blank/blob/12-03/img/Screenshot_2.jpg)
 
@@ -42,7 +46,10 @@ SELECT * FROM sakila.rental r ORDER BY r.rental_date DESC, r.rental_id DESC LIMI
 - *замените буквы 'll' в именах на 'pp'.*
 
 ```
-SELECT REPLACE (LOWER (first_name), 'll', 'pp') AS fn, LOWER(last_name) AS ln FROM sakila.customer c WHERE c.first_name LIKE 'Kelly' or c.first_name LIKE 'Willie';
+SELECT REPLACE (LOWER (first_name), 'll', 'pp') AS fn,
+       LOWER(last_name) AS ln
+FROM sakila.customer c
+WHERE c.first_name LIKE 'Kelly' or c.first_name LIKE 'Willie';
 ```
 ![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/12-03/img/Screenshot_4.jpg)
 
