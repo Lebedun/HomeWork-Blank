@@ -13,6 +13,18 @@
 
 1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
 
+В итоге, чтобы подключиться с основной машины (где был установлен DBeaver) через проброшенный порт в виртуалку, пришлось создать пользователя sys_temp@% с аналогичным уровнем прав.
+
+```
+CREATE USER 'sys_temp'@'localhost' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'localhost' WITH GRANT OPTION;
+CREATE USER 'sys_temp'@'%' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+Скриншот обрезал, так как там очень длинный список прав.
+
 ![Screenshot_2](https://github.com/Lebedun/HomeWork-Blank/blob/12-02/img/Screenshot_2.jpg)
 
 1.6. Переподключитесь к базе данных от имени sys_temp.
@@ -21,7 +33,19 @@
 
 1.7. Восстановите дамп в базу данных.
 
+На удивление просто оказалось всё. Скачал - распаковал - создал схему - загрузил данные. Я думал будет больше мороки.
+
+```
+wget https://downloads.mysql.com/docs/sakila-db.zip
+unzip sakila-db.zip
+cd sakila-db/
+mysql -u sys_temp -p < sakila-schema.sql
+mysql -u sys_temp -p < sakila-data.sql
+```
+
 1.8. При работе в IDE сформируйте ER-диаграмму получившейся базы данных. При работе в командной строке используйте команду для получения всех таблиц базы данных. (скриншот)
+
+
 
 ![Screenshot_3](https://github.com/Lebedun/HomeWork-Blank/blob/12-02/img/Screenshot_3.jpg)
 
