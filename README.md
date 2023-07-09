@@ -75,7 +75,15 @@ store               | store_id
 ### Задание 3*
 3.1. Уберите у пользователя sys_temp права на внесение, изменение и удаление данных из базы sakila.
 
+Поскольку мы создавали пользователя до БД и давали ему полные права на все БД, то мы можем либо удалить его права полностью и дать права заново только нужные и только на базу sakila, либо провернуть подобную команду (всё равно на сервере у нас только одна база данных):
+
+```
+REVOKE INSERT, DELETE, CREATE, ALTER, UPDATE, DROP, CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, CREATE TABLESPACE, CREATE ROLE, DROP ROLE, SHUTDOWN ON *.* FROM 'sys_temp'@'%';
+```
+
 3.2. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
+
+Останутся только права вроде таких (возможно, стоило выкинуть ещё что-то):
 
 ![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/??-??/img/Screenshot_4.jpg)
 
