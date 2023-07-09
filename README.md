@@ -85,5 +85,5 @@ REVOKE INSERT, DELETE, CREATE, ALTER, UPDATE, DROP, CREATE TEMPORARY TABLES, LOC
 
 Останутся только права вроде таких (возможно, стоило выкинуть ещё что-то):
 
-![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/??-??/img/Screenshot_4.jpg)
+![Screenshot_4](https://github.com/Lebedun/HomeWork-Blank/blob/12-02/img/Screenshot_4.jpg)
 
