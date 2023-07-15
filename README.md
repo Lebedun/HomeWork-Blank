@@ -52,6 +52,8 @@ WHERE subs2.c_num > 300;
 ### Задание 2
 
 *Получите количество фильмов, продолжительность которых больше средней продолжительности всех фильмов.*
+
+COUNT(1) использую для быстродействия, чтобы запрос не доставал из таблицы ненужные поля.
 ```
 SELECT COUNT(1) FROM sakila.film f
 WHERE f.length > (SELECT AVG(f.length) FROM sakila.film f);
@@ -101,7 +103,16 @@ GROUP BY r.staff_id;
 ```
 ### Задание 5*
 
-Найдите фильмы, которые ни разу не брали в аренду.
+*Найдите фильмы, которые ни разу не брали в аренду.*
 
-![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/??-??/img/Screenshot_1.jpg)
-
+Тоже несложно - сначала делаем список всех ID фильмов, которые когда-либо брались в аренду (никаких условий не нужно, условием будет сам JOIN - если фильм никогда не брался в аренду, соответствующих inventory.id не будет в таблице rental и фильм в выборку не попадёт), затем пользуемся конструкцией NOT IN.
+ 
+```
+SELECT DISTINCT (f.title) FROM sakila.film f 
+WHERE f.film_id NOT IN
+(
+	SELECT DISTINCT (f.film_id) used FROM sakila.film f
+	JOIN sakila.inventory i ON f.film_id = i.film_id 
+	JOIN sakila.rental r ON r.inventory_id = i.inventory_id 
+);
+```
