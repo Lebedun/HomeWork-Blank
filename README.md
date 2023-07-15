@@ -60,8 +60,27 @@ WHERE f.length > (SELECT AVG(f.length) FROM sakila.film f);
 
 ### Задание 3
 
-Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
+*Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.*
 
+Первый подзапрос вычисляет самый доходный месяц, второй подзапрос выдаёт общее количество аренд за каждый месяц, далее join и некоторая обработка результатов, чтобы вывести год и месяц отдельно.
+
+```
+SELECT YEAR(subs1.p_month) best_year, MONTH(subs1.p_month) best_month, subs1.p_sum total_sum, subs2.r_num total_rents FROM 
+(
+	SELECT EXTRACT(YEAR_MONTH FROM p.payment_date) p_month, SUM(p.amount) p_sum 
+	FROM sakila.payment p 
+	GROUP BY EXTRACT(YEAR_MONTH FROM p.payment_date)
+	ORDER BY p_sum DESC
+	LIMIT 1
+) subs1
+JOIN
+(
+	SELECT EXTRACT(YEAR_MONTH FROM r.rental_date) p_month, count(1) r_num 
+	FROM sakila.rental r  
+	GROUP BY EXTRACT(YEAR_MONTH FROM r.rental_date)
+) subs2
+ON subs1.p_month = subs2.p_month;
+```
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
