@@ -21,14 +21,13 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 *- перечислите узкие места;*
 *- оптимизируйте запрос: внесите корректировки по использованию операторов, при необходимости добавьте индексы.*
 
-Тут у меня волосы встали дыбом глядя на запрос без всякого explain analyse. Прямое произведение пяти таблиц, две из которых (inventory и film) реально вообще не используется ?! 
+Тут у меня волосы встали дыбом глядя на запрос без всякого explain analyse. Прямое произведение пяти таблиц, три из которых (inventory,rental и film) реально вообще не используется ?! Причём film и inventory не используются вообще, а rental вроде бы используется, но используемое содержимое полностью повторяет таковое из таблицы payments. 
 
-Причёсываем запрос к следующему виду:
+Выкидываем всё ненужное и причёсываем запрос к следующему виду:
 ```sql
 select distinct concat(c.last_name, ' ', c.first_name), sum(p.amount) over (partition by c.customer_id)
 from sakila.payment p 
-join sakila.rental r ON p.payment_date = r.rental_date 
-join sakila.customer c ON r.customer_id = c.customer_id 
+join sakila.customer c ON p.customer_id = c.customer_id 
 where date(p.payment_date) = '2005-07-30';
 ```
 
@@ -36,8 +35,7 @@ where date(p.payment_date) = '2005-07-30';
 ```sql
 select concat(c.last_name, ' ', c.first_name), sum(p.amount)
 from sakila.payment p 
-join sakila.rental r ON p.payment_date = r.rental_date 
-join sakila.customer c ON r.customer_id = c.customer_id 
+join sakila.customer c ON p.customer_id = c.customer_id 
 where date(p.payment_date) = '2005-07-30'
 GROUP BY c.customer_id; 
 ```
