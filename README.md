@@ -26,7 +26,89 @@
 
 *1. Terraform Playbook.*
 
+В meta.txt ничего интересного, кроме ключа доступа к ВМ. Как засунуть count в target, чтобы можно было менять просто аргумент (через переменную) - так и не придумал =(. Вроде как на версии Terraform ниже 0.12 count можно было вставлять не только в resource, но что сейчас вместо этого механизма предложено - непонятно.
+
 ```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+provider "yandex" {
+  token = "y0_AgAAAA...c4"
+  cloud_id = "b1gs...34"
+  folder_id = "b1gr...4b"
+  zone = "ru-central1-a"
+}
+
+resource "yandex_compute_instance" "tfvms" {
+  count = 2
+  name = "terraform${count.index}"
+  resources {
+    cores  = 2
+    memory = 2
+  }
+  boot_disk {
+    initialize_params {
+      image_id = "fd8kvc2easore7l8ql6q"
+    }
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    nat       = true
+  }
+  metadata = {
+    user-data = "${file("./meta.txt")}"
+  }
+}
+
+resource "yandex_vpc_network" "network-1" {
+  name = "network1"
+}
+
+resource "yandex_vpc_subnet" "subnet-1" {
+  name           = "subnet1"
+  zone           = "ru-central1-a"
+  network_id     = yandex_vpc_network.network-1.id
+  v4_cidr_blocks = ["192.168.10.0/24"]
+}
+
+resource "yandex_lb_target_group" "trgtgrp" {
+  name                   = "targetgroup1"
+  target {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    address = yandex_compute_instance.tfvms[0].network_interface.0.ip_address
+  }
+  target {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    address = yandex_compute_instance.tfvms[1].network_interface.0.ip_address
+  }
+}
+
+resource "yandex_lb_network_load_balancer" "ldblncr" {
+  name = "loadbalancer1"
+  listener {
+    name = "testlistener"
+    port = 80
+    external_address_spec {
+      ip_version="ipv4"
+    }
+  }
+  attached_target_group {
+    target_group_id = yandex_lb_target_group.trgtgrp.id
+    healthcheck {
+      name = "http"
+      http_options {
+          port = 80
+          path = "/"
+      }
+    }
+  }
+}
 ```
 
 *2. Скриншот статуса балансировщика и целевой группы.*
