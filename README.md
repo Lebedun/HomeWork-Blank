@@ -79,15 +79,15 @@ resource "yandex_vpc_subnet" "subnet-1" {
 
 resource "yandex_lb_target_group" "trgtgrp" {
   name                   = "targetgroup1"
-  target {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
-    address = yandex_compute_instance.tfvms[0].network_interface.0.ip_address
-  }
-  target {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
-    address = yandex_compute_instance.tfvms[1].network_interface.0.ip_address
+  dynamic target {
+  for_each = yandex_compute_instance.tfvms
+    content {
+       subnet_id            = yandex_vpc_subnet.subnet-1.id
+       address              = target.value.network_interface.0.ip_address
+    }
   }
 }
+
 
 resource "yandex_lb_network_load_balancer" "ldblncr" {
   name = "loadbalancer1"
