@@ -291,7 +291,7 @@ test_db=# explain analyse select "фамилия" from clients where "заказ
 
 ---
 
-Бэкап:
+Бэкап (первая команда нужна, чтобы посмотреть id контейнера):
 
 ```
 docker ps
@@ -312,7 +312,7 @@ docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v ba
 
 ```
 docker ps
-docker exec -it id_контейнера bash
+docker exec -it id_нового_контейнера bash
 ```
 
 В терминале внутри контейнера создаю базу данных и пользователей:
