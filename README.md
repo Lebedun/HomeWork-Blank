@@ -60,6 +60,52 @@ docker run --name pgadmin-leb -p 5051:80 -e "PGADMIN_DEFAULT_EMAIL=lebedun@gmail
 
 ---
 
+```
+test_db=# \l
+                                 List of databases
+   Name    | Owner | Encoding |  Collate   |   Ctype    |     Access privileges
+-----------+-------+----------+------------+------------+---------------------------
+ leb       | leb   | UTF8     | en_US.utf8 | en_US.utf8 |
+ postgres  | leb   | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | leb   | UTF8     | en_US.utf8 | en_US.utf8 | =c/leb                   +
+           |       |          |            |            | leb=CTc/leb
+ template1 | leb   | UTF8     | en_US.utf8 | en_US.utf8 | =c/leb                   +
+           |       |          |            |            | leb=CTc/leb
+ test_db   | leb   | UTF8     | en_US.utf8 | en_US.utf8 | =Tc/leb                  +
+           |       |          |            |            | leb=CTc/leb              +
+           |       |          |            |            | "test-admin-user"=CTc/leb
+(5 rows)
+```
+
+```
+test_db=# \d orders
+                               Table "public.orders"
+    Column    |  Type   | Collation | Nullable |              Default
+--------------+---------+-----------+----------+------------------------------------
+ id           | integer |           | not null | nextval('orders_id_seq'::regclass)
+ наименование | text    |           |          |
+ цена         | integer |           |          |
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "clients" CONSTRAINT "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
+```
+
+```
+test_db=# \d clients
+                                  Table "public.clients"
+      Column       |  Type   | Collation | Nullable |               Default
+-------------------+---------+-----------+----------+-------------------------------------
+ id                | integer |           | not null | nextval('clients_id_seq'::regclass)
+ фамилия           | text    |           |          |
+ страна проживания | text    |           |          |
+ заказ             | integer |           |          |
+Indexes:
+    "clients_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
+```
+
 ## Задача 3
 
 Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
