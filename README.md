@@ -60,6 +60,7 @@ docker run --name pgadmin-leb -p 5051:80 -e "PGADMIN_DEFAULT_EMAIL=lebedun@gmail
 
 ---
 
+Cписок БД:
 ```
 test_db=# \l
                                  List of databases
@@ -76,7 +77,7 @@ test_db=# \l
            |       |          |            |            | "test-admin-user"=CTc/leb
 (5 rows)
 ```
-
+Описание таблицы orders:
 ```
 test_db=# \d orders
                                Table "public.orders"
@@ -91,6 +92,7 @@ Referenced by:
     TABLE "clients" CONSTRAINT "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
 ```
 
+Описание таблицы clients:
 ```
 test_db=# \d clients
                                   Table "public.clients"
@@ -106,6 +108,49 @@ Foreign-key constraints:
     "clients_заказ_fkey" FOREIGN KEY ("заказ") REFERENCES orders(id)
 ```
 
+Запрос на просмотр прав пользователей на таблицы orders и clients и результат его работы:
+```
+test_db=#  SELECT * FROM information_schema.table_privileges where table_name='clients' or table_name='orders' order by grantee;
+ grantor |     grantee      | table_catalog | table_schema | table_name | privilege_type | is_grantable | with_hierarchy
+---------+------------------+---------------+--------------+------------+----------------+--------------+----------------
+ leb     | leb              | test_db       | public       | orders     | INSERT         | YES          | NO
+ leb     | leb              | test_db       | public       | orders     | SELECT         | YES          | YES
+ leb     | leb              | test_db       | public       | orders     | UPDATE         | YES          | NO
+ leb     | leb              | test_db       | public       | orders     | DELETE         | YES          | NO
+ leb     | leb              | test_db       | public       | orders     | TRUNCATE       | YES          | NO
+ leb     | leb              | test_db       | public       | orders     | REFERENCES     | YES          | NO
+ leb     | leb              | test_db       | public       | orders     | TRIGGER        | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | INSERT         | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | SELECT         | YES          | YES
+ leb     | leb              | test_db       | public       | clients    | UPDATE         | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | DELETE         | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | TRUNCATE       | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | REFERENCES     | YES          | NO
+ leb     | leb              | test_db       | public       | clients    | TRIGGER        | YES          | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | DELETE         | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | TRUNCATE       | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | REFERENCES     | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | TRIGGER        | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | INSERT         | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | SELECT         | NO           | YES
+ leb     | test-admin-user  | test_db       | public       | clients    | UPDATE         | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | DELETE         | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | TRUNCATE       | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | REFERENCES     | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | clients    | TRIGGER        | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | INSERT         | NO           | NO
+ leb     | test-admin-user  | test_db       | public       | orders     | SELECT         | NO           | YES
+ leb     | test-admin-user  | test_db       | public       | orders     | UPDATE         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | clients    | DELETE         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | orders     | INSERT         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | orders     | SELECT         | NO           | YES
+ leb     | test-simple-user | test_db       | public       | orders     | UPDATE         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | orders     | DELETE         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | clients    | INSERT         | NO           | NO
+ leb     | test-simple-user | test_db       | public       | clients    | SELECT         | NO           | YES
+ leb     | test-simple-user | test_db       | public       | clients    | UPDATE         | NO           | NO
+(36 rows)
+```
 ## Задача 3
 
 Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
