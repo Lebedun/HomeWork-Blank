@@ -305,7 +305,7 @@ docker stop id_контейнера
 Cоздаю новый контейнер, к которому подключаю только архивный volume:
 
 ```
-docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v backup:/backup --name postgresql postgres:12.10
+docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v backup:/backup --name postgresql_2 postgres:12.10
 ```
 
 Подключаюсь к конейнеру:
