@@ -153,9 +153,9 @@ test_db=#  SELECT * FROM information_schema.table_privileges where table_name='c
 ```
 ## Задача 3
 
-Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:
+*Используя SQL-синтаксис, наполните таблицы следующими тестовыми данными:*
 
-Таблица orders
+*Таблица orders*
 
 |Наименование|цена|
 |------------|----|
@@ -165,7 +165,7 @@ test_db=#  SELECT * FROM information_schema.table_privileges where table_name='c
 |Монитор| 7000|
 |Гитара| 4000|
 
-Таблица clients
+*Таблица clients*
 
 |ФИО|Страна проживания|
 |------------|----|
@@ -175,13 +175,38 @@ test_db=#  SELECT * FROM information_schema.table_privileges where table_name='c
 |Ронни Джеймс Дио| Russia|
 |Ritchie Blackmore| Russia|
 
-Используя SQL-синтаксис:
-- вычислите количество записей для каждой таблицы.
+*Используя SQL-синтаксис:*
+- *вычислите количество записей для каждой таблицы.*
 
-Приведите в ответе:
+*Приведите в ответе:*
 
-    - запросы,
-    - результаты их выполнения.
+    - *запросы,*
+    - *результаты их выполнения.*
+
+---
+
+Заполнение таблиц:
+```
+test_db=# insert into orders ("наименование", "цена") values ('Шоколад',10), ('Принтер', 3000), ('Книга', 500), ('Монитор', 7000), ('Гитара', 4000);
+INSERT 0 5
+test_db=# insert into clients ("фамилия", "страна проживания") values ('Иванов Иван Иванович', 'USA'), ('Петров Пётр Петрович', 'Canada'), ('Иоганн Себастьян Бах', 'Japan'), ('Ронни Джеймс Дио', 'Russia'), ('Ritchie Blackmore', 'Russia');
+INSERT 0 5
+```
+Размер таблиц:
+```
+test_db=# select count (1) from orders;
+ count
+-------
+     5
+(1 row)
+
+test_db=# select count (1) from clients;
+ count
+-------
+     5
+(1 row)
+
+```
 
 ## Задача 4
 
