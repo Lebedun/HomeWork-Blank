@@ -10,18 +10,23 @@
 
 Создаю 2 volume:
 
+```
 docker volume create db
 docker volume create backup
-
+```
 Скачиваю нужную версию postgres и разворачиваю контейнер:
 
+```
 docker pull postgres:12.10
 docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v db:/var/lib/pgsql/data -v backup:/backup --name postgresql postgres:12.10
+```
 
 Скачиваю и разворачиваю вспомогательный контейнер с pgadmin:
 
+```
 docker pull dpage/pgadmin4:latest
 docker run --name pgadmin-leb -p 5051:80 -e "PGADMIN_DEFAULT_EMAIL=lebedun@gmail.com" -e "PGADMIN_DEFAULT_PASSWORD=lebpwd123" -d dpage/pgadmin4
+```
 
 ## Задача 2
 
