@@ -14,6 +14,7 @@
 docker volume create db
 docker volume create backup
 ```
+
 Скачиваю нужную версию postgres и разворачиваю контейнер:
 
 ```
@@ -21,7 +22,7 @@ docker pull postgres:12.10
 docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v db:/var/lib/pgsql/data -v backup:/backup --name postgresql postgres:12.10
 ```
 
-Скачиваю и разворачиваю вспомогательный контейнер с pgadmin:
+Скачиваю и разворачиваю вспомогательный контейнер с инструментом pgadmin (не был оговорен в ДЗ, но очень пригодился):
 
 ```
 docker pull dpage/pgadmin4:latest
@@ -262,7 +263,7 @@ test_db=# explain select "фамилия" from clients where "заказ" is not
    Filter: ("заказ" IS NOT NULL)
 (2 rows)
 ```
-Индекса в нашей таблице нет, поэтому запрос должен просмотреть её полностью. Почему планировщик решил, что ему придётся просмотреть 806 строк - не понимаю, возможно, это минимальный размер, который он оценивает, исходя из структуры таблицы. Если использовать конструкцию explain analyse, видно реальные показатели:
+Никаких  индексов в нашей таблице нет, поэтому запрос должен просмотреть её полностью. Почему планировщик решил, что ему придётся просмотреть 806 строк - не понимаю, возможно, это минимальный размер, который он оценивает, исходя из структуры таблицы. Если использовать конструкцию explain analyse, видно реальные показатели:
 
 ```
 test_db=# explain analyse select "фамилия" from clients where "заказ" is not null;
@@ -290,4 +291,44 @@ test_db=# explain analyse select "фамилия" from clients where "заказ
 
 ---
 
+Бэкап:
 
+```
+docker ps
+docker exec -it id_контейнера bash
+pg_dump test_db > /backup/test_db.dump
+exit
+docker stop id_контейнера
+```
+Восстановление:
+
+Cоздаю новый контейнер, к которому подключаю только архивный volume:
+
+```
+docker run -itd -e POSTGRES_USER=leb -e POSTGRES_PASSWORD=pwd -p 5432:5432 -v backup:/backup --name postgresql postgres:12.10
+```
+
+Подключаюсь к конейнеру:
+
+```
+docker ps
+docker exec -it id_контейнера bash
+```
+
+В терминале внутри контейнера создаю базу данных и пользователей:
+
+```
+psql -U leb
+create database test_db;
+create user "test-admin-user" with password '123';
+create user "test-simple-user" with password '123';
+exit;
+```
+
+Распаковываю дамп в базу:
+
+```
+psql -U leb test_db < /backup/test_db.dump
+```
+
+Захожу в pgadmin, переподключаюсь к серверу и убеждаюсь, что все данные на месте (либо делаю select * from clients или orders).
