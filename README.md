@@ -48,9 +48,14 @@ lebedev@nworkstation:~$ VBoxManage --version
 ```
 
 ```
-lebedev@nworkstation:~$ vagrant version
-Installed Version: 2.3.4
-Latest Version: 2.4.0
+lebedev@nworkstation:~$ vagrant --version
+Vagrant 2.3.4
+```
+
+```
+lebedev@nworkstation:~$ terraform --version
+Terraform v1.5.7
+on linux_amd64
 ```
 
 
