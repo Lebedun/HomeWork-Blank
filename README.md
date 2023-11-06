@@ -58,6 +58,18 @@ Terraform v1.5.7
 on linux_amd64
 ```
 
+```
+lebedev@nworkstation:~$ ansible --version
+ansible [core 2.14.3]
+  config file = None
+  configured module search path = ['/home/lebedev/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  ansible collection location = /home/lebedev/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible
+  python version = 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0] (/usr/bin/python3)
+  jinja version = 3.1.2
+  libyaml = True
+```
 
 ## Задача 4 
 
@@ -66,7 +78,7 @@ on linux_amd64
 - *Создайте виртуальную машину.*
 - *Зайдите внутрь ВМ, убедитесь, что Docker установлен с помощью команды*
 ```
-docker ps,
+docker ps
 ```
 
 
