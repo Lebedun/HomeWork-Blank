@@ -42,6 +42,18 @@
 
 *Приложите вывод команд установленных версий каждой из программ, оформленный в Markdown.*
 
+```
+lebedev@nworkstation:~$ VBoxManage --version
+7.0.12r159484
+```
+
+```
+lebedev@nworkstation:~$ vagrant version
+Installed Version: 2.3.4
+Latest Version: 2.4.0
+```
+
+
 ## Задача 4 
 
 *Воспроизведите практическую часть лекции самостоятельно.*
