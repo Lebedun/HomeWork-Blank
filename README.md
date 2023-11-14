@@ -26,6 +26,9 @@ replicated - запускается фиксированное количест�
 docker node ls
 ```
 
+![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/05-05/img/Screenshot_1.jpg)
+
+
 ## Задача 3
 
 *Создайте ваш первый, готовый к боевой эксплуатации кластер мониторинга, состоящий из стека микросервисов.*
@@ -35,6 +38,9 @@ docker node ls
 docker service ls
 ```
 
+![Screenshot_2](https://github.com/Lebedun/HomeWork-Blank/blob/05-05/img/Screenshot_2.jpg)
+
+
 ## Задача 4 (*)
 
 *Выполните на лидере Docker Swarm-кластера команду, указанную ниже, и дайте письменное описание её функционала — что она делает и зачем нужна:*
@@ -43,7 +49,4 @@ docker service ls
 docker swarm update --autolock=true
 ```
 
-
-
-![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/??-??/img/Screenshot_1.jpg)
 
