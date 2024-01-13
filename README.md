@@ -122,3 +122,34 @@ No changes. Your infrastructure matches the configuration.
 
 Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
 ```
+**Задание 3**
+
+Для того, чтобы разместить ВМ в другой зоне, пришлось добавить привязанную к этой зоне подсеть.
+
+**Задание 4**
+
+Получилось несколько топорно:
+```
+output "vm_info" {
+value = join("\n", [yandex_compute_instance.platform.name, 
+                    yandex_compute_instance.platform.fqdn, 
+                    yandex_compute_instance.platform.network_interface[0].nat_ip_address,
+                    yandex_compute_instance.platform_db.name, 
+                    yandex_compute_instance.platform_db.fqdn,
+                    yandex_compute_instance.platform_db.network_interface[0].nat_ip_address]
+            )
+}
+```
+
+Но сработало:
+```
+lebedev@nworkstation:~/homeworks/t02/src$ terraform output
+vm_info = <<EOT
+netology-develop-platform-web
+fhmojbc0ogi4s7bveqej.auto.internal
+158.160.126.162
+netology-develop-platform-db
+epdg9l410mujacc1njfb.auto.internal
+84.201.162.177
+EOT
+```
