@@ -153,3 +153,40 @@ epdg9l410mujacc1njfb.auto.internal
 84.201.162.177
 EOT
 ```
+
+**Задание 5**
+
+Скопировал строку с примером формирования переменной с презентации. Убил два часа на поиски ошибки. Минус в середине формулы оказался каким-то другим символом, хотя визуально выглядел так же...
+
+**Задание 6**
+
+Очень жаль, что в переменных внутри нельзя ссылаться на другие переменные. Получилось только вот так:
+
+```
+variable "vms_resources" {
+  type = map(map(string))
+  default={
+    web={
+      cores=2
+      memory=1
+      core_fraction=5
+    }  
+    db={
+      cores=2
+      memory=2
+      core_fraction=20
+    }
+  }  
+}
+```
+
+И вот так:
+```
+variable "vms_metadata" {
+  type = map(string)
+  default = {
+    serial-port-enable = 1
+    ssh-keys = "ubuntu:ssh-ed25519 AAAAC3N******************************************R5R lebedev@nworkstation"
+  }
+}
+```
