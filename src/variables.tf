@@ -22,7 +22,7 @@ variable "default_zone" {
 
 variable "db_zone" {
   type        = string
-  default     = "ru-central1-a"
+  default     = "ru-central1-b"
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
 
