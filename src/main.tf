@@ -11,7 +11,7 @@ resource "yandex_vpc_subnet" "develop" {
 resource "yandex_vpc_subnet" "db" {
   name           = var.vpc_db_name
   zone           = var.db_zone
-  network_id     = yandex_vpc_network.db.id
+  network_id     = yandex_vpc_network.develop.id
   v4_cidr_blocks = var.db_cidr
 }
 
