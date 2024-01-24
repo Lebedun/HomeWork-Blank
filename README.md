@@ -1,4 +1,8 @@
-# Домашнее задание к занятию "???" - Лебедев Антон
+# Домашнее задание к занятию "Управляющие конструкции в коде Terraform" - Лебедев Антон
 
-![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/??-??/img/Screenshot_1.jpg)
+###Задание 1
+
+
+
+![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/t03/img/Screenshot_1.jpg)
 
