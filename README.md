@@ -1,5 +1,7 @@
 # Домашнее задание к занятию "Управляющие конструкции в коде Terraform" - Лебедев Антон
 
+В папке src находится копия файлов проекта в конечном состоянии. Для удобства проверяющего в комментарии к каждому заданию вынесен кусок когда, касающийся данного задания.
+
 **Задание 1**
 
 ![Screenshot_1](https://github.com/Lebedun/HomeWork-Blank/blob/t03/img/Screenshot_1.jpg)
@@ -100,6 +102,7 @@ resource "yandex_compute_disk" "task_3_disk" {
 resource "yandex_compute_instance" "web_storage" {
   name        = "storage"
   platform_id = "standard-v1"
+  depends_on = [yandex_compute_disk.task_3_disk]
   resources {
     cores  = 2
     memory = 1
@@ -129,3 +132,5 @@ resource "yandex_compute_instance" "web_storage" {
   allow_stopping_for_update = true
 }
 ```
+
+**Задание 4**
