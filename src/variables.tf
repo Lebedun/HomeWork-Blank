@@ -39,6 +39,121 @@ variable "vms_metadata" {
   }
 }
 
-variable "each_vm_params_notype" {
-  default = {}
+variable "image_name_string" {
+  type        = string
+  default     = "ubuntu-2004-lts"
+  description = "Linux distro name"
 }
+
+## type = list(object({ ... })) - заставить работать не удалось, for_each требует в качестве "перечисляемого" map или list of strings 
+## проще всего оказалось вообще убрать тип у переменной (поэтому notype) и дать terraform выбрать подходящий по её присваиванию.
+
+variable "each_vm_params_notype" {
+  default={}
+}
+
+## count-vm #################################################
+
+variable "count-vm-platform" {
+  type = string
+  default = "standard-v1"
+}
+
+variable "count-vm-count" {
+  type=number
+  default = 2  
+}
+
+variable "count-vm-cores" {
+  type=number
+  default = 2  
+}
+
+variable "count-vm-memory" {
+  type=number
+  default = 1  
+}
+
+variable "count-vm-core_fraction" {
+  type=number
+  default = 5  
+}
+
+variable "count-vm-boot_disk-type" {
+  type=string
+  default = "network-hdd"  
+}
+
+variable "count-vm-boot_disk-size" {
+  type=number
+  default = 5  
+}
+
+## for_each ############################################3
+
+variable "for_each-vm-platform" {
+  type = string
+  default = "standard-v1"
+}
+
+
+
+variable "for_each-vm-core_fraction" {
+  type=number
+  default = 5  
+}
+
+variable "for_each-vm-boot_disk-type" {
+  type=string
+  default = "network-hdd"  
+}
+
+## disk ############################################3
+
+variable "disk-vm-platform" {
+  type = string
+  default = "standard-v1"
+}
+
+variable "disk-vm-cores" {
+  type=number
+  default = 2  
+}
+
+variable "disk-vm-memory" {
+  type=number
+  default = 1  
+}
+
+variable "disk-vm-core_fraction" {
+  type=number
+  default = 5  
+}
+
+variable "disk-vm-boot_disk-type" {
+  type=string
+  default = "network-hdd"  
+}
+
+variable "disk-vm-boot_disk-size" {
+  type=number
+  default = 5  
+}
+
+## task_3_disk #############################################
+
+variable "task_3_disk-count" {
+  type=number
+  default = 3  
+}
+
+variable "task_3_disk-type" {
+  type=string
+  default = "network-hdd"  
+}
+
+variable "task_3_disk-size" {
+  type=number
+  default = 1  
+}
+

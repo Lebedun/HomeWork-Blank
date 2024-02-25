@@ -12,5 +12,6 @@ ${i["name"]}   ansible_host=${i["network_interface"][0]["nat_ip_address"]} fqdn=
 %{~ endfor ~}
 
 
+#для storage цикл не нужен, я удалил его здесь специально - по условиям задачи такая машина всего одна ! 
 [storage]
 ${storage["name"]}   ansible_host=${storage["network_interface"][0]["nat_ip_address"]} fqdn=${storage["fqdn"]}

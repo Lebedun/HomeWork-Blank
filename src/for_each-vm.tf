@@ -6,17 +6,17 @@ resource "yandex_compute_instance" "for_each_vm" {
 
     name = each.value.name
 
-    platform_id = "standard-v1"
+    platform_id = var.for_each-vm-platform
 
     resources {
         cores  = each.value.cores
         memory = each.value.memory
-        core_fraction = 5
+        core_fraction = var.for_each-vm-core_fraction
     }
 
     boot_disk {
         initialize_params {
-            image_id = data.yandex_compute_image.ubuntu-2004-lts.image_id
+            image_id = data.yandex_compute_image.image_name.image_id
             type = "network-hdd"
             size = each.value.disk_volume
         }   

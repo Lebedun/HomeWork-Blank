@@ -1,20 +1,20 @@
 resource "yandex_compute_instance" "web_vm" {
   name        = "web-${count.index}"
-  platform_id = "standard-v1"
+  platform_id = var.count-vm-platform
   
-  count = 2
-
+  count = var.count-vm-count
+  
   resources {
-    cores  = 2
-    memory = 1
-    core_fraction = 5
+    cores  = var.count-vm-cores
+    memory = var.count-vm-memory
+    core_fraction = var.count-vm-core_fraction
   }
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.ubuntu-2004-lts.image_id
-      type = "network-hdd"
-      size = 5
+      image_id = data.yandex_compute_image.image_name.image_id
+      type = var.count-vm-boot_disk-type
+      size = var.count-vm-boot_disk-size
     }   
   }
 

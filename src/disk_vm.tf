@@ -1,35 +1,34 @@
 resource "yandex_compute_disk" "task_3_disk" {
   
     name   = "disk-${count.index}"
-    count = 3
-    type  = "network-hdd"
-    zone  = "ru-central1-a"
-    size  = 1
+    count = var.task_3_disk-count
+    type  = var.task_3_disk-type
+    zone  = var.default_zone
+    size  = var.task_3_disk-size
 }
 
 resource "yandex_compute_instance" "web_storage" {
   name        = "storage"
-  platform_id = "standard-v1"
+  platform_id = var.disk-vm-platform
   depends_on = [yandex_compute_disk.task_3_disk]
 
   resources {
-    cores  = 2
-    memory = 1
-    core_fraction = 5
+    cores  = var.disk-vm-cores
+    memory = var.disk-vm-memory
+    core_fraction = var.disk-vm-core_fraction
   }
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.ubuntu-2004-lts.image_id
-      type = "network-hdd"
-      size = 5
+      image_id = data.yandex_compute_image.image_name.image_id
+      type = var.disk-vm-boot_disk-type
+      size = var.disk-vm-boot_disk-size
     }   
   }
 
     dynamic "secondary_disk" {
         for_each = yandex_compute_disk.task_3_disk
         content {
-            ##disk_id = yandex_compute_disk.task_3_disk[secondary_disk.value.name].id
             disk_id = secondary_disk.value.id
         }    
     }
