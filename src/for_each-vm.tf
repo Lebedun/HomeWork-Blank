@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "for_each_vm" {
 
-    for_each = var.each_vm_params_notype
+    for_each = var.each_vm_params_mapobj
 
     depends_on = [yandex_compute_instance.web_vm]
 

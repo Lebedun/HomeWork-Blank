@@ -1,15 +1,15 @@
-each_vm_params_notype = {
+each_vm_params_mapobj = {
   main = {
-    name        = "main",
-    cores       = 4,
-    memory      = 4,
-    disk_volume = 40,    
+    cores = 4
+    disk_volume = 40
+    memory = 4
+    name = "main"
   }
   replica = {
-    name        = "replica",
-    cores       = 2,
-    memory      = 2,
-    disk_volume = 20,    
+    cores = 2
+    disk_volume = 20
+    memory = 2
+    name = "replica"
   }
 }
 

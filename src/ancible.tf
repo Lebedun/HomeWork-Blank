@@ -4,7 +4,7 @@ resource "local_file" "ansible_hosts" {
     { 
         webservers = yandex_compute_instance.web_vm
         databases = yandex_compute_instance.for_each_vm
-        storage = yandex_compute_instance.web_storage
+        storages = [yandex_compute_instance.web_storage]
     })
     filename = "ansible_hosts"
 }

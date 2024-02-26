@@ -45,12 +45,31 @@ variable "image_name_string" {
   description = "Linux distro name"
 }
 
-## type = list(object({ ... })) - заставить работать не удалось, for_each требует в качестве "перечисляемого" map или list of strings 
-## проще всего оказалось вообще убрать тип у переменной (поэтому notype) и дать terraform выбрать подходящий по её присваиванию.
-
-variable "each_vm_params_notype" {
-  default={}
+variable each_vm_params_mapobj {
+  type = map(
+    object({
+        cores: number,
+        disk_volume: number,
+        memory: number,
+        name: string,
+    })
+  )
+  default={
+    main = {
+      cores = 4
+      disk_volume = 40
+      memory = 4
+      name = "main"
+    }
+    replica = {
+      cores = 2
+      disk_volume = 20
+      memory = 2
+      name = "replica"
+    }
+  }
 }
+
 
 ## count-vm #################################################
 
